@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block heading %}Area requests{% endblock %}{% block content %}
+<div class="page-intro"><div><h1>Community area requests</h1><p>Submit and track support requests for your assigned village.</p></div></div>
+<section class="panel"><h3>Create a request</h3><form method="post" class="form-grid">
+<label>Request type<select name="request_type"><option>Home visit required</option><option>Maternal health follow-up</option><option>Child health follow-up</option><option>Immunization follow-up</option><option>Referral coordination</option><option>Medicine / supply support</option><option>Other</option></select></label>
+<label>Priority<select name="priority"><option>Normal</option><option>High</option><option>Urgent</option></select></label>
+<label>Related patient (optional)<select name="patient_db_id"><option value="">No linked patient</option>{% for p in patients %}<option value="{{p.id}}">{{p.patient_id}} — {{p.name}}</option>{% endfor %}</select></label>
+<label class="wide">Request details *<textarea name="description" rows="4" required placeholder="Describe the support needed. Avoid unnecessary identifying details."></textarea></label>
+<div class="form-actions"><button class="btn primary">Submit request</button></div></form></section>
+<section class="panel"><h3>My submitted requests</h3><div class="table-wrap"><table><thead><tr><th>REQUEST</th><th>TYPE</th><th>PRIORITY</th><th>AREA</th><th>STATUS</th><th>DATE</th></tr></thead><tbody>{% for r in requests %}<tr><td>{{r.request_code}}</td><td>{{r.request_type}}</td><td>{{r.priority}}</td><td>{{r.village}}, {{r.block}}</td><td>{{r.status}}</td><td>{{r.created_at}}</td></tr>{% else %}<tr><td colspan="6">No requests submitted yet.</td></tr>{% endfor %}</tbody></table></div></section>{% endblock %}

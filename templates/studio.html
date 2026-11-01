@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% block heading %}Voice-to-EHR Studio{% endblock %}{% block content %}
+<div class="page-intro"><div><h1>Voice-to-EHR Studio</h1><p>Capture a visit narrative by voice and prepare a draft for ASHA review.</p></div><span class="tag">Browser speech capture</span></div>
+<div class="notice">Voice capture uses your browser's speech-recognition feature. Chrome is recommended. Microphone permission and internet may be required. Transcript must be checked by the ASHA worker. Gemini-based clinical field extraction is a later integration.</div>
+<section class="panel"><form method="post" class="form-grid" id="voiceForm">
+<label>Patient *<select name="patient_db_id" required>{% for p in patients %}<option value="{{p.id}}">{{p.patient_id}} — {{p.name}}</option>{% endfor %}</select></label>
+<label>Speech language<select id="speechLanguage" name="language"><option value="hi-IN">Hindi</option><option value="en-IN">English (India)</option><option value="mr-IN">Marathi</option></select></label>
+<div class="wide voice-controls"><button type="button" class="btn primary" id="startVoice">🎙 Start speaking</button><button type="button" class="btn danger" id="stopVoice" disabled>Stop</button><span id="voiceStatus" class="hint">Microphone is not active.</span></div>
+<label class="wide">Transcript — review and correct before saving *<textarea id="transcript" name="transcript" rows="7" required placeholder="Your spoken words will appear here. You can also type or edit them."></textarea></label>
+<label class="wide">Structured notes for review<textarea name="structured_text" rows="5" placeholder="Symptoms reported:\nDuration:\nMeasured observations:\nMissing information:\nFollow-up needed:"></textarea></label>
+<div class="form-actions"><button class="btn primary" {% if not patients %}disabled{% endif %}>Save EHR draft for review</button></div></form>
+{% if not patients %}<p class="hint">Register a patient first.</p>{% endif %}</section>
+{% endblock %}

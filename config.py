@@ -1,0 +1,3 @@
+import os
+ADMIN_USERNAME = os.getenv("ASHA_ADMIN_USERNAME", "ADMIN")
+ADMIN_PASSWORD = os.getenv("ASHA_ADMIN_PASSWORD", "ChangeMe123!")
